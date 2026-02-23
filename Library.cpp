@@ -49,4 +49,18 @@ Admin* Library::findAdminByName(const string& name)
     }
     return nullptr;
 }
+/*
+void Library::setCurrentUser(User* user)
+{
+    currentUser = user;
+}
 
+User* Library::getCurrentUser()
+{
+    return currentUser;
+}
+
+void Library::logout()
+{
+    currentUser = 0;
+}*/

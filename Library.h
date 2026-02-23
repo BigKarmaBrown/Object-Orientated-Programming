@@ -28,5 +28,19 @@ public:
     Librarian* findLibrarianByName(const string& name);
     Admin* findAdminByName(const string& name);
 
-  
+    User* currentUser = nullptr;
+    void setCurrentUser(User* user)
+    {
+        currentUser = user;
+    }
+
+    User* getCurrentUser()
+    {
+        return currentUser;
+    }
+
+    void logout()
+    {
+        currentUser = 0;
+    }
 };

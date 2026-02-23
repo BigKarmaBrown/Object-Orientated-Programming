@@ -16,6 +16,26 @@ void addUser(Library& library);
         int booksBorrowed;
         bool booksReserved;
         vector<Book*>ownBook;//store borroed books in here
+        
+        int getBorrowedLimit() {
+            return borrowedLimit;
+        }
+        void setBorrowedLimit(int value) {
+            borrowedLimit = value;
+        }
+        int getreservationExpiration() {
+            return reservationExpiration;
+        }
+        void setreservationExpiration(int value) {
+            reservationExpiration = value;
+        }
+        int getlateFeePenalty() {
+            return lateFeePenalty;
+        }
+        void setlateFeePenalty(int value) {
+            lateFeePenalty = value;
+        }
+
 
         void setUserNumber(int amount)
         {
@@ -57,13 +77,19 @@ void addUser(Library& library);
         {
             return booksReserved;
         }
-
+        bool hasBooks() 
+        {
+            return !ownBook.empty();
+        }
         User(string name, int number, int passkey) :
             userName(name),
             userNumber(number),
             booksBorrowed(0),
             booksOverDue(0),
             booksReserved(0),
+            borrowedLimit(5),
+            reservationExpiration(3),
+            lateFeePenalty(50),
             userPasskey(passkey) {
         }
 
@@ -77,7 +103,8 @@ void addUser(Library& library);
     private:
         int userPasskey;
         int booksOverDue;
-
-
+        int borrowedLimit;
+        int lateFeePenalty;
+        int reservationExpiration;
 };
  

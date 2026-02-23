@@ -7,13 +7,6 @@
 #include <iostream>
 using namespace std;
 
-
-
-
-
-
-
-
 void loginMenu(Library& library) {
 
     int passkey = 0;
@@ -91,6 +84,41 @@ void typeMenu(Library& library)
     }
 
 }
+void usernameLogin(Library& library) {
+        string passname;
+        int passkey;
+        
+        do {
+
+            cout << "What is the Users Name? " << endl;
+            cout << "(Type 'Back' for Main Menu)" << endl;
+            cin >> passname;
+
+
+            if (passname == "Back" || passname == "back") {
+                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~RETURNING MAIN MENU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                return;
+            }
+
+            User* user = library.findUserByName(passname);
+            if (user == nullptr) {
+                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ USER NAME INVALID ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                continue;
+            }
+            cout << "Enter passkey: " << endl;
+            cin >> passkey;
+
+            if (user->checkPasskey(passkey)) {
+                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~USER NAME CORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                UserMainMenu(library);
+                return;
+            }
+            else {
+                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NAME INCORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            }
+
+        }while (true);
+    }
 void LibrarianLoginMenu(Library& library){
 
     string passname;
@@ -166,9 +194,12 @@ void AdminLoginMenu(Library& library)
     } while (true);
 
 }
-void BrowseBooksMenu(User* user, Library& library)  //all
+void BrowseBooksMenu(Library& library)  //all
 {
-    while (true) {
+    while (true) 
+    {
+        User* user = library.getCurrentUser();
+        string yesNo;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BOOKS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         for (auto& book : library.Books)
         {
@@ -176,7 +207,7 @@ void BrowseBooksMenu(User* user, Library& library)  //all
             cout << "Book Name: " << book.getBookName() << endl;
             cout << "Book Id: " << book.getBookID() << endl;
             cout << "Book Author: " << book.getBookAuthor() << endl;
-            cout << "Book Borrowed: ";
+            cout << "Book Borrowed: " << endl;
             if (book.getBorrowed() == true)
             {
                 cout << "Yes" << endl;
@@ -186,7 +217,7 @@ void BrowseBooksMenu(User* user, Library& library)  //all
             {
                 cout << "No" << endl;
             }
-            cout << "Book Reserved: ";
+            cout << "Book Reserved: " << endl;
             if (book.getReserved() == true)
             {
                 cout << "Yes" << endl;
@@ -201,6 +232,11 @@ void BrowseBooksMenu(User* user, Library& library)  //all
         }
         cout << "Type Book ID to borrow book" << endl;
         cout << "(Type 0 to Go back)" << endl;
+
+
+
+
+
         int choice;
         cin >> choice;
         if (choice == 0)
@@ -211,49 +247,105 @@ void BrowseBooksMenu(User* user, Library& library)  //all
         {
             if (book.getBookID() == choice)
             {
-                if (book.getBorrowed())
+                if (user->booksBorrowed == user->getBorrowedLimit())
                 {
-                    cout << "Sorry, book is already borrowed." << endl;
+                    cout << "Sorry, Max books borrowed!" << endl;
                     break;
                 }
-                else {
-                    book.setBorrowed(true);
-                    user->ownBook.push_back(&book);
-                    user->booksBorrowed += 1;
+                else 
+                {
+                    if (book.getBorrowed())
+                    {
+                        cout << "Sorry, book is already borrowed." << endl;
+                        cout << "Would u like to reserve this book?" << endl; 
+                        cin.clear();
+                        cin >> yesNo;
+                        if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
+                        {
+                            cout << "Returning!" << endl;
+                            return;
+                        }
 
-                    cout << "Book borrowed successfully!" << endl;
+                        if (yesNo == "Yes" || yesNo == "yes" || yesNo == "Y" || yesNo == "y" || yesNo == "YES")
+                        {
+                            if (user->getBookReserved() == true) {
+                                cout << "You can only reserve one book at a time" << endl;
+                                return;
+                            }
+                            if (user->getBookReserved() == false) {
+                                user->setBooksReserved(true);
+                                cout << "Book reserve request sent!" << endl;
+
+                                return;
+                            }
+
+
+                        }
+                        else
+                        {
+                            cout << "Invalid Input, Please try again!" << endl;
+                            return;
+                        }
+
+
+
+
+                    }
+                    else 
+                    {
+                        book.setBorrowed(true);
+                        user->ownBook.push_back(&book);
+                        user->booksBorrowed += 1;
+
+                        cout << "Book borrowed successfully!" << endl;
+                    }
                 }
                 break;
             }
         }
 
-        cout << "Invalid Book ID." << endl;
+       
 
     }
-    
-
 }
-void ViewOwnBooksMenu(User* user, Library& library)  //all
+void ViewOwnBooksMenu(Library& library)  //all
 {
-    string word;
+    User* user = library.getCurrentUser();
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OWN BOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "(type to go back)" << endl;
-    cout << " " << endl;
-    cout << " " << endl;
-    for (auto& ownBooks : library.Books) {
-        cout << ownBooks.getBookName() << endl;
-        cout << ownBooks.getBookAuthor() << endl;
-        cout << ownBooks.getBookID() << endl;
-        cout << " " << endl;
+    string word;
+    if (!(user->hasBooks())) 
+    {
+        cout << " You have no books borrowed." << endl;
+        cout << "Borrow a book to see it here." << endl;
+        cout << "Type to go back!" << endl;
+        if (!(cin >> word)) {
+            cout << "Invalid Input" << endl;
+            cin.clear();
+            return;
+        }
+    }
+    else {
+           
+            cout << " " << endl;
+            cout << " " << endl;
+            for (auto& ownBooks : library.Books) {
+                cout << ownBooks.getBookName() << endl;
+                cout << ownBooks.getBookAuthor() << endl;
+                cout << ownBooks.getBookID() << endl;
+                cout << " " << endl;
+            }
+    
+            if (!(cin >> word)) {
+                cout << "Invalid Input" << endl;
+                cin.clear();
+                return;
+            }
+            return;
+
     }
     
-    if (!(cin >> word)) {
-        cout << "Invalid Input" << endl;
-        cin.clear();
-        return;
-    }
-    return;
-
+   
 }
 void ChangeBooksMenu(Library& library) //LIBRARIAN AND ADMIN
 {
@@ -377,14 +469,132 @@ void ManageUserAccountsMenu(Library& library)  // ADMIN
     }
     }
 }
-void ChangeSystemLimitationsMenu(Library& library)  // ADMIN
+
+void ChangeSystemLimitationsMenu(Library& library)
 {
 
+    while (true)
+    {
+
+        int ans;
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << "~~~~~~~~~~~~~~~~~~~~~~CHANGE SYSTEM LIMITATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << "                What system limitation would u like to change?" << endl;
+        cout << " " << endl;
+        cout << " " << endl;
+
+        if (!(cin >> ans))
+        {
+            cout << "Invalid Input" << endl;
+            cin.clear();
+        }
+
+        switch (ans)
+        {
+        case 1:
+        {
+            cout << "Change Borrowing Books Limit" << endl;
+            changeBooksLimitMenu(library);
+            break;
+        }
+
+        case 2:
+        {
+            cout << "Change Late Penalty" << endl;
+            changeLatePenaltyMenu(library);
+            break;
+        }
+        case 3:
+        {
+            cout << "Change Reservation Expiration" << endl;
+            changeReservationsExpirationMenu(library);
+            break;
+        }
+        case 4:
+        {
+            cout << "~~~~~~~~~~~~~~~~~~~~~~Going Back~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            return;
+            break;
+        }
+        default:
+        {
+            cout << "invalid input " << endl;
+        }
+        }
+    }
 }
-void UserMainMenu(User* user, Library& library)
+
+
+
+
+void changeBooksLimitMenu(Library& library)
 {
+    User* user = library.getCurrentUser();
+    cout << "Change Borrowing Books Limit" << endl;
+    cout << "Current Quantity: " << user->getBorrowedLimit() << endl;
+    int change;
+    cout << " " << endl;
+    cout << "Input new Limit" << endl;
+    cin >> change;
+    if (!(cin >> change))
+    {
+        cout << "invalid input! " << endl;
+        cin.clear();
+    }
+    else 
+    {
+        user->setBorrowedLimit(change);
+        cout << "New limit has been set!" << endl;
+        return;
+    }
+    
+}
+void changeLatePenaltyMenu(Library& library)
+{
+    User* user = library.getCurrentUser();
+    cout << "Change Late Penalty" << endl;
+    cout << "Current Late Fee: " << user->getlateFeePenalty() << endl;
+    int change;
+    cout << " " << endl;
+    cout << "Input new Fee" << endl;
+    cin >> change;
+    if (!(change))
+    {
+        cout << "invalid input! " << endl;
+        cin.clear();
+    }
+    else
+    {
+        user->setlateFeePenalty(change);
+        cout << "New late fee has been set to: "<< user->getlateFeePenalty() << endl;
+        return;
+    }
+}
+void changeReservationsExpirationMenu(Library & library){
+    User* user = library.getCurrentUser();
+    cout << "Change Reservation Expiration" << endl;
+    cout << "Current Days of expiration: " << user->getreservationExpiration() << endl;
+    int change;
+    cout << " " << endl;
+    cout << "Input new Limit" << endl;
+    cin >> change;
+    if (!(cin >> change))
+    {
+        cout << "invalid input! " << endl;
+        cin.clear();
+    }
+    else
+    {
+        user->setreservationExpiration(change);
+        cout << "New Expiration Set!" << endl;
+        return;
+    }
+}
+void UserMainMenu(Library& library){
     while(true)
     {
+        User* user = library.getCurrentUser();
         int menuInput;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -405,13 +615,13 @@ void UserMainMenu(User* user, Library& library)
         {
          case 1:
         {
-           BrowseBooksMenu(user, library);
+           BrowseBooksMenu(library);
             break;
         }
 
         case 2:
         {
-            ViewOwnBooksMenu(user, library);
+            ViewOwnBooksMenu(library);
             break;
         }
 
@@ -435,6 +645,7 @@ void UserMainMenu(User* user, Library& library)
 void LibrarianMainMenu(Librarian* librarain, Library& library)
 {
     while (true){
+
     int menuInput;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -459,14 +670,14 @@ void LibrarianMainMenu(Librarian* librarain, Library& library)
     case 1:
     {
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BROWSE BOOKS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-        BrowseBooksMenu(librarain, library);
+        BrowseBooksMenu(library);
         break;
     }
 
     case 2:
     {
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~VIEW OWN BOOKS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-        ViewOwnBooksMenu(librarain, library);
+        ViewOwnBooksMenu(library);
         break;
     }
 
@@ -534,14 +745,14 @@ void AdminMainMenu(Admin* admin, Library& library)
         case 1:
         {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BROWSE BOOKS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-            BrowseBooksMenu(admin, library);
+            BrowseBooksMenu(library);
             break;
         }
 
         case 2:
         {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~VIEW OWN BOOKS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-            ViewOwnBooksMenu(admin, library);
+            ViewOwnBooksMenu(library);
             break;
         }
 
@@ -594,41 +805,7 @@ void AdminMainMenu(Admin* admin, Library& library)
         }
     }
 }
-    void usernameLogin(Library& library) {
-        string passname;
-        int passkey;
 
-        do {
-
-            cout << "What is the Users Name? " << endl;
-            cout << "(Type 'Back' for Main Menu)" << endl;
-            cin >> passname;
-
-
-            if (passname == "Back" || passname == "back") {
-                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~RETURNING MAIN MENU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-                return;
-            }
-
-            User* user = library.findUserByName(passname);
-            if (user == nullptr) {
-                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ USER NAME INVALID ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-                continue;
-            }
-            cout << "Enter passkey: " << endl;
-            cin >> passkey;
-
-            if (user->checkPasskey(passkey)) {
-                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~USER NAME CORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-                UserMainMenu(user, library);
-                return;
-            }
-            else {
-                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NAME INCORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-            }
-
-        }while (true);
-    }
 
 
 

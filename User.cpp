@@ -1,5 +1,31 @@
 #include "User.h"
 #include "library.h"
+
+
+int borrowedLimit = 5;
+int getBorrowedLimit() {
+    return borrowedLimit;
+}
+void setBorrowedLimit(int value) {
+    borrowedLimit = value;
+}
+int reservationExpiration = 3;
+
+int getreservationExpiration() {
+    return reservationExpiration;
+}
+void setreservationExpiration(int value) {
+    reservationExpiration = value;
+}
+int lateFeePenalty = 50;
+
+int getlateFeePenalty() {
+    return lateFeePenalty;
+}
+void setlateFeePenalty(int value) {
+    lateFeePenalty = value;
+}
+
 void addUser(Library& library)
 {
     string tempUserName;
