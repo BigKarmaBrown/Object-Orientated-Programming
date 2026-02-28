@@ -46,7 +46,7 @@ int main() {
     library.addBook(Book(15, "The green mile", "Stephen King", false, false));
     library.addBook(Book(16, "Cross", "James Patterson", false, false));
     library.addBook(Book(17, "Along Came a spider", "James Patterson", false, false));
-    library.addBook(Book(18, "Kiss the grils", "James Patterson", false, false));
+    library.addBook(Book(18, "Kiss the girls", "James Patterson", false, false));
     library.addBook(Book(19, "I funny", "James Patterson", false, false));
     library.addBook(Book(20, "The quickie", "James Patterson", false, false));
 

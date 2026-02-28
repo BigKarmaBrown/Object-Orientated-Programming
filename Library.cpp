@@ -49,18 +49,112 @@ Admin* Library::findAdminByName(const string& name)
     }
     return nullptr;
 }
-/*
-void Library::setCurrentUser(User* user)
-{
-    currentUser = user;
-}
 
-User* Library::getCurrentUser()
+void Library::removeUser()
 {
-    return currentUser;
-}
+    string tempUser;
+    string yesNo;
+    int tempID;
+   
+    cout << "Which User Would you like to get rid of?" << endl;
+    cin >> tempUser;
 
-void Library::logout()
+    cout << "Whats the Users ID?" << endl;
+    cin >> tempID;
+
+
+    cout << "Are these details correct? " << endl;
+    cout << "User Name: " << tempUser << endl;
+    cout << "User ID: " << tempID << endl;
+    
+    cin >> yesNo;
+    if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
+    {
+        cout << "please try again" << endl;
+        return;
+        
+    }
+
+    if (yesNo == "Yes" || yesNo == "yes" || yesNo == "Y" || yesNo == "y" || yesNo == "YES")
+    {
+        
+
+        for (auto it = Users.begin(); it != Users.end(); ++it)
+        {
+            if (it->getUserName() == tempUser &&
+                it->getUserNumber() == tempID)
+            {
+                Users.erase(it);
+                cout << "User has been erased! " << endl;
+                return;
+            }
+            else
+            {
+               
+
+            }
+        }
+        cout << "Invalid input" << endl;
+    }
+    else
+    {
+        cout << "Invalid Input, Please try again!" << endl;
+        
+        return;
+    }
+
+}
+void Library::removeBook() 
 {
-    currentUser = 0;
-}*/
+    string tempBook;
+    string yesNo;
+    int tempID;
+
+    cout << "Which Book Would you like to get rid of?" << endl;
+    cin >> tempBook;
+
+    cout << "Whats the Books ID?" << endl;
+    cin >> tempID;
+
+
+    cout << "Are these details correct? " << endl;
+    cout << "Book Name: " << tempBook << endl;
+    cout << "Book ID: " << tempID << endl;
+
+    cin >> yesNo;
+    if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
+    {
+        cout << "please try again" << endl;
+        return;
+
+    }
+
+    if (yesNo == "Yes" || yesNo == "yes" || yesNo == "Y" || yesNo == "y" || yesNo == "YES")
+    {
+
+
+        for (auto it = Books.begin(); it != Books.end(); ++it)
+        {
+            if (it->getBookName() == tempBook &&
+                it->getBookID() == tempID)
+            {
+                Books.erase(it);
+                cout << "Book has been erased! " << endl;
+                return;
+            }
+            else
+            {
+
+
+            }
+        }
+        cout << "Invalid input" << endl;
+    }
+    else
+    {
+        cout << "Invalid Input, Please try again!" << endl;
+
+        return;
+    }
+
+}

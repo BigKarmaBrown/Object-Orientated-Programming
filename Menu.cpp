@@ -196,47 +196,12 @@ void AdminLoginMenu(Library& library)
 }
 void BrowseBooksMenu(Library& library)  //all
 {
-    while (true) 
+    while (true)
     {
         User* user = library.getCurrentUser();
         string yesNo;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BOOKS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-        for (auto& book : library.Books)
-        {
-
-            cout << "Book Name: " << book.getBookName() << endl;
-            cout << "Book Id: " << book.getBookID() << endl;
-            cout << "Book Author: " << book.getBookAuthor() << endl;
-            cout << "Book Borrowed: " << endl;
-            if (book.getBorrowed() == true)
-            {
-                cout << "Yes" << endl;
-
-            }
-            else
-            {
-                cout << "No" << endl;
-            }
-            cout << "Book Reserved: " << endl;
-            if (book.getReserved() == true)
-            {
-                cout << "Yes" << endl;
-            }
-            else
-            {
-                cout << "No" << endl;
-            }
-            cout << endl;
-            cout << endl;
-
-        }
-        cout << "Type Book ID to borrow book" << endl;
-        cout << "(Type 0 to Go back)" << endl;
-
-
-
-
-
+        user->printAllBooks(library);
         int choice;
         cin >> choice;
         if (choice == 0)
@@ -247,67 +212,44 @@ void BrowseBooksMenu(Library& library)  //all
         {
             if (book.getBookID() == choice)
             {
-                if (user->booksBorrowed == user->getBorrowedLimit())
+                if (user->booksBorrowed >= user->getBorrowedLimit())
                 {
                     cout << "Sorry, Max books borrowed!" << endl;
                     break;
                 }
-                else 
+                
+                if (!book.getBorrowed())
                 {
-                    if (book.getBorrowed())
-                    {
-                        cout << "Sorry, book is already borrowed." << endl;
-                        cout << "Would u like to reserve this book?" << endl; 
-                        cin.clear();
-                        cin >> yesNo;
-                        if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
-                        {
-                            cout << "Returning!" << endl;
-                            return;
-                        }
-
-                        if (yesNo == "Yes" || yesNo == "yes" || yesNo == "Y" || yesNo == "y" || yesNo == "YES")
-                        {
-                            if (user->getBookReserved() == true) {
-                                cout << "You can only reserve one book at a time" << endl;
-                                return;
-                            }
-                            if (user->getBookReserved() == false) {
-                                user->setBooksReserved(true);
-                                cout << "Book reserve request sent!" << endl;
-
-                                return;
-                            }
-
-
-                        }
-                        else
-                        {
-                            cout << "Invalid Input, Please try again!" << endl;
-                            return;
-                        }
-
-
-
-
-                    }
-                    else 
-                    {
-                        book.setBorrowed(true);
-                        user->ownBook.push_back(&book);
-                        user->booksBorrowed += 1;
-
-                        cout << "Book borrowed successfully!" << endl;
-                    }
+                book.setBorrowed(true);
+                user->ownBook.push_back(&book);
+                user->booksBorrowed += 1;
+                cout << "Book borrowed successfully!" << endl;
+                break;
+                }
+                if (book.getReserved() == true) 
+                {
+                    cout << "Sorry, book is already reserved" << endl;
+                    break;
+                }
+                if (user->getBookReserved() == true) {
+                    cout << "You can only reserve one book at a time" << endl;
+                    continue;
+                }
+                if (user->getBookReserved() == false) {
+                    user->setBooksReserved(true);
+                    cout << "Book reserve request sent!" << endl;
+                    return;
+                }
+                else
+                {
+                    cout << "Invalid Input, Please try again!" << endl;
+                    return;
                 }
                 break;
             }
         }
-
-       
-
     }
-}
+};
 void ViewOwnBooksMenu(Library& library)  //all
 {
     User* user = library.getCurrentUser();
@@ -365,7 +307,7 @@ void ChangeBooksMenu(Library& library) //LIBRARIAN AND ADMIN
     }
     case 2:
     {
-        removeBook(library);
+        library.removeBook();
         break;
     }
 
@@ -438,8 +380,8 @@ void ManageUserAccountsMenu(Library& library)  // ADMIN
 
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~MANAGE USER ACCOUNTS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "Pick an Option" << endl;
-    cout << "1. Add Book to system" << endl;
-    cout << "2. Remove Book from system" << endl;
+    cout << "1. Add User to system" << endl;
+    cout << "2. Remove User from system" << endl;
     cout << "3. Go back" << endl;
     cin >> option;
     switch (option) {
@@ -451,7 +393,7 @@ void ManageUserAccountsMenu(Library& library)  // ADMIN
     }
     case 2:
     {
-        removeUser(library);
+        library.removeUser();
         break;
     }
 
@@ -469,7 +411,6 @@ void ManageUserAccountsMenu(Library& library)  // ADMIN
     }
     }
 }
-
 void ChangeSystemLimitationsMenu(Library& library)
 {
 
@@ -524,10 +465,6 @@ void ChangeSystemLimitationsMenu(Library& library)
         }
     }
 }
-
-
-
-
 void changeBooksLimitMenu(Library& library)
 {
     User* user = library.getCurrentUser();
@@ -805,7 +742,6 @@ void AdminMainMenu(Admin* admin, Library& library)
         }
     }
 }
-
 
 
 

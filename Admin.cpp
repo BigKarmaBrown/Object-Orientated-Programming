@@ -1,35 +1,6 @@
 #include "Admin.h"
 #include "Library.h"
-void removeUser(Library& library)
-{
-    bool correctDetails;
-    string tempUser;
-    int tempID;
 
-    cout << "Which User Would you like to get rid of?" << endl;
-    cin >> tempUser;
-
-    //compare tempUser to User Library
-
-
-    cout << "Whats the Users ID?" << endl;
-    cin >> tempID;
-
-    //compare tempID to User Library
-
-
-    cout << "Are these details correct? " << endl;
-    cout << "User Name: " << tempUser << endl;
-    cout << "User ID: " << tempID << endl;
-    cin >> correctDetails;
-    if (!correctDetails) {
-        cout << "Please try again. " << endl;
-        return;
-    }
-    cout << "User Succesfully removed! " << endl;
-    return;
-
-}
 void addLibrarian(Library& library)
 {
     string tempLibrarianName;

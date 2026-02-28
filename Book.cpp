@@ -60,3 +60,4 @@ bool Book::getReserved() const
 {
     return reserved;
 }
+

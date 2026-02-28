@@ -1,5 +1,6 @@
 #include "User.h"
 #include "library.h"
+#include "Book.h"
 
 
 int borrowedLimit = 5;
@@ -79,3 +80,35 @@ void addUser(Library& library)
     return;
 
 }
+void User::printAllBooks(Library& library) {
+    for (auto& book : library.Books)
+    {
+
+        cout << "Book Name: " << book.getBookName() << endl;
+        cout << "Book Id: " << book.getBookID() << endl;
+        cout << "Book Author: " << book.getBookAuthor() << endl;
+        cout << "Book Borrowed: " << endl;
+        if (book.getBorrowed() == true)
+        {
+            cout << "Yes" << endl;
+
+        }
+        else
+        {
+            cout << "No" << endl;
+        }
+        cout << "Book Reserved: " << endl;
+        if (book.getReserved() == true)
+        {
+            cout << "Yes" << endl;
+        }
+        else
+        {
+            cout << "No" << endl;
+        }
+        cout << endl;
+        cout << endl;
+
+    }
+}
+

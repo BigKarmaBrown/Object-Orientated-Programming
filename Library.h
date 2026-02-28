@@ -22,6 +22,8 @@ public:
     void addBook(const Book& book);
     void addLibrarian(const Librarian& librarian);
     void addAdmin(const Admin& admin);
+    void removeUser();
+    void removeBook();
 
    
     User* findUserByName(const string& name);

@@ -16,7 +16,8 @@ void addUser(Library& library);
         int booksBorrowed;
         bool booksReserved;
         vector<Book*>ownBook;//store borroed books in here
-        
+        void printAllBooks(Library& library);
+
         int getBorrowedLimit() {
             return borrowedLimit;
         }

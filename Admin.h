@@ -16,7 +16,7 @@ public:
 
 
 };
-void removeUser(Library& library);//NOT STARTED
+
 void addLibrarian(Library& library);
 void addAdmin(Library& library); 
 

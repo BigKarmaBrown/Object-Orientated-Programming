@@ -15,6 +15,6 @@ public:
 
 };
 
-void addBook(Library& library);
+
 void ViewReport(Library& library);//NOT STARTED
-void removeBook(Library& library); //NOT STARTED
+void addBook(Library& library);
