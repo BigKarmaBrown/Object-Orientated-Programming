@@ -14,8 +14,8 @@ class Menu {
  
 void loginMenu(Library& library);
 void UserMainMenu(Library& library);
-void AdminMainMenu(Admin* admin, Library& library);
-void LibrarianMainMenu(Librarian* librarian, Library& library);
+void AdminMainMenu(User* user, Library& library);
+void LibrarianMainMenu(User* user, Library& library);
 void loginMenu(Library& library);
 void BrowseBooksMenu(Library& library); //PROGRESS
 void ViewOwnBooksMenu(Library& library);

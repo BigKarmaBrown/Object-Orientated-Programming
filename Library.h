@@ -7,8 +7,7 @@
 #include "Admin.h"
 
 using namespace std;
-class Librarian;
-class Admin;
+
 class Library
 {
 
@@ -30,7 +29,9 @@ public:
     Librarian* findLibrarianByName(const string& name);
     Admin* findAdminByName(const string& name);
 
-    User* currentUser = nullptr;
+    static User* currentUser;
+
+
     void setCurrentUser(User* user)
     {
         currentUser = user;

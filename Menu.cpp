@@ -6,11 +6,13 @@
 #include "Book.h"
 #include <iostream>
 using namespace std;
+#include <string>
+
 
 void loginMenu(Library& library) {
-
-    int passkey = 0;
-    string yesNo;
+    system("CLS");
+    string passkey = "";
+    string yesNo = "";
 
     cout << "Do you have an account?" << endl;
     cout << "Yes or No? " << endl;
@@ -39,6 +41,7 @@ void typeMenu(Library& library)
 {
     while (true){
     int ans;
+    system("CLS");
     cout << "Which type of account do you have? " << endl;
     cout << "Type One of the following numbers: " << endl;
     cout << "1: User" << endl;
@@ -85,9 +88,10 @@ void typeMenu(Library& library)
 
 }
 void usernameLogin(Library& library) {
-        string passname;
-        int passkey;
+        string passname = "";
+        string passkey = "";
         
+        system("CLS");
         do {
 
             cout << "What is the Users Name? " << endl;
@@ -107,23 +111,27 @@ void usernameLogin(Library& library) {
             }
             cout << "Enter passkey: " << endl;
             cin >> passkey;
+           
 
             if (user->checkPasskey(passkey)) {
                 cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~USER NAME CORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                User* user = Library::currentUser;
                 UserMainMenu(library);
+                cin.clear();
                 return;
             }
             else {
-                cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NAME INCORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                cout << "~~y~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NAME INCORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+               
             }
-
+            cin.ignore();
         }while (true);
     }
 void LibrarianLoginMenu(Library& library){
 
-    string passname;
-    int passkey;
-
+    string passname = "";
+    string passkey = "";
+    system("CLS");
     do {
 
         cout << "What is the Users Name? " << endl;
@@ -146,21 +154,23 @@ void LibrarianLoginMenu(Library& library){
 
         if (user->checkPasskey(passkey)) {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~USER NAME CORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            User* user = Library::currentUser;
             LibrarianMainMenu(user, library);
             return;
         }
         else {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NAME INCORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+      
         }
-
+        cin.ignore();
     } while (true);
 
 }
 void AdminLoginMenu(Library& library)
 {
-
-    string passname;
-    int passkey;
+    system("CLS");
+    string passname = "";
+    string passkey = "";
 
     do {
 
@@ -184,33 +194,38 @@ void AdminLoginMenu(Library& library)
 
         if (user->checkPasskey(passkey)) {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~USER NAME CORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            User* user = Library::currentUser;
             AdminMainMenu(user, library);
             return;
         }
         else {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NAME INCORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         }
-
+        cin.ignore();
     } while (true);
 
 }
 void BrowseBooksMenu(Library& library)  //all
 {
+    
     while (true)
     {
+        system("CLS");
         User* user = library.getCurrentUser();
-        string yesNo;
+        string yesNo = "";
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BOOKS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << "Type 'Back' to go back a menu!" << endl;
         user->printAllBooks(library);
-        int choice;
+        string choice;
         cin >> choice;
-        if (choice == 0)
+        if (choice == "Back" || choice == "back")
         {
             return;
         }
+       
         for (auto& book : library.Books)
         {
-            if (book.getBookID() == choice)
+            if (choice == book.getBookName())
             {
                 if (user->booksBorrowed >= user->getBorrowedLimit())
                 {
@@ -247,15 +262,20 @@ void BrowseBooksMenu(Library& library)  //all
                 }
                 break;
             }
+           
         }
+
+        
     }
+
 };
 void ViewOwnBooksMenu(Library& library)  //all
 {
     User* user = library.getCurrentUser();
+    system("CLS");
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OWN BOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "(type to go back)" << endl;
-    string word;
+    string word = "";
     if (!(user->hasBooks())) 
     {
         cout << " You have no books borrowed." << endl;
@@ -292,6 +312,7 @@ void ViewOwnBooksMenu(Library& library)  //all
 void ChangeBooksMenu(Library& library) //LIBRARIAN AND ADMIN
 {
     int option;
+    system("CLS");
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CHANGE BOOKS MENU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "Pick an Option" << endl;
     cout << "1. Add Book to system" << endl;
@@ -329,6 +350,7 @@ void AddAccountMenu(Library& library)
 {
     while (true){
     int option;
+    system("CLS");
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ADD ACCOUNTS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 
     cout << "Pick an option for an account to add." << endl;
@@ -377,7 +399,7 @@ void ManageUserAccountsMenu(Library& library)  // ADMIN
 {
     while (true){
     int option;
-
+    system("CLS");
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~MANAGE USER ACCOUNTS MENU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "Pick an Option" << endl;
     cout << "1. Add User to system" << endl;
@@ -416,7 +438,7 @@ void ChangeSystemLimitationsMenu(Library& library)
 
     while (true)
     {
-
+        system("CLS");
         int ans;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "~~~~~~~~~~~~~~~~~~~~~~CHANGE SYSTEM LIMITATIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -424,6 +446,10 @@ void ChangeSystemLimitationsMenu(Library& library)
         cout << "                What system limitation would u like to change?" << endl;
         cout << " " << endl;
         cout << " " << endl;
+        cout << "1: Change Borrowing Books Limit" << endl;
+        cout << "2: Change Late Penalty" << endl;
+        cout << "3: Change Reservation Expiration" << endl;
+        cout << "4: Back" << endl;
 
         if (!(cin >> ans))
         {
@@ -467,6 +493,7 @@ void ChangeSystemLimitationsMenu(Library& library)
 }
 void changeBooksLimitMenu(Library& library)
 {
+    system("CLS");
     User* user = library.getCurrentUser();
     cout << "Change Borrowing Books Limit" << endl;
     cout << "Current Quantity: " << user->getBorrowedLimit() << endl;
@@ -489,6 +516,7 @@ void changeBooksLimitMenu(Library& library)
 }
 void changeLatePenaltyMenu(Library& library)
 {
+    system("CLS");
     User* user = library.getCurrentUser();
     cout << "Change Late Penalty" << endl;
     cout << "Current Late Fee: " << user->getlateFeePenalty() << endl;
@@ -509,6 +537,7 @@ void changeLatePenaltyMenu(Library& library)
     }
 }
 void changeReservationsExpirationMenu(Library & library){
+    system("CLS");
     User* user = library.getCurrentUser();
     cout << "Change Reservation Expiration" << endl;
     cout << "Current Days of expiration: " << user->getreservationExpiration() << endl;
@@ -533,6 +562,7 @@ void UserMainMenu(Library& library){
     {
         User* user = library.getCurrentUser();
         int menuInput;
+        system("CLS");
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "                                    MAIN MENU                                       " << endl;
@@ -579,11 +609,12 @@ void UserMainMenu(Library& library){
         }
     
 }
-void LibrarianMainMenu(Librarian* librarain, Library& library)
+void LibrarianMainMenu(User* user, Library& library)
 {
     while (true){
 
     int menuInput;
+    system("CLS");
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "                             LIBRARIAN MAIN MENU                                    " << endl;
@@ -652,10 +683,11 @@ void LibrarianMainMenu(Librarian* librarain, Library& library)
     }
     }
 }
-void AdminMainMenu(Admin* admin, Library& library)
+void AdminMainMenu(User* user, Library& library)
 {
     while (true) {
         int menuInput;
+        system("CLS");
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "                             ADMIN MAIN MENU                                    " << endl;

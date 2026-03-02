@@ -7,16 +7,12 @@ using namespace std;
 class Library;
 class Admin : public Librarian {
 public:
-
-    
-
-    Admin(string name, int number, int Passkey)
-        :Librarian(name, number, Passkey) {
+    Admin(string name, string passkey)
+        :Librarian(name, passkey)
+    {
     }
 
-
 };
-
 void addLibrarian(Library& library);
 void addAdmin(Library& library); 
 

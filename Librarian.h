@@ -6,8 +6,8 @@ class Library;
 class Librarian : public User {
 public:
 
-    Librarian(string name, int number, int Passkey)
-        : User(name, number, Passkey)
+    Librarian(string name, string passkey)
+        : User(name, passkey)
     {
 
     }

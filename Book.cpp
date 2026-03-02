@@ -1,6 +1,6 @@
 #include "Book.h"
 
-Book::Book(int ID, std::string name, std::string author, bool borrowed, bool reserved)
+Book::Book(string ID, string name, string author, bool borrowed, bool reserved)
 {
     bookID = ID;
     bookName = name;
@@ -10,9 +10,9 @@ Book::Book(int ID, std::string name, std::string author, bool borrowed, bool res
 }
 
 
-void Book::setBookID(int amount)
+void Book::setBookID(string value)
 {
-    bookID = amount;
+    bookID = value;
 }
 
 void Book::setBookName(string value)
@@ -36,7 +36,7 @@ void Book::setReserved(bool value)
 }
 
 
-int Book::getBookID() const
+string Book::getBookID() const
 {
     return bookID;
 }

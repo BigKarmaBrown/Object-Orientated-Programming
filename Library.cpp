@@ -50,22 +50,23 @@ Admin* Library::findAdminByName(const string& name)
     return nullptr;
 }
 
+
+
 void Library::removeUser()
 {
     string tempUser;
     string yesNo;
-    int tempID;
+    
    
     cout << "Which User Would you like to get rid of?" << endl;
     cin >> tempUser;
 
-    cout << "Whats the Users ID?" << endl;
-    cin >> tempID;
+  
 
 
     cout << "Are these details correct? " << endl;
     cout << "User Name: " << tempUser << endl;
-    cout << "User ID: " << tempID << endl;
+    
     
     cin >> yesNo;
     if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
@@ -81,8 +82,7 @@ void Library::removeUser()
 
         for (auto it = Users.begin(); it != Users.end(); ++it)
         {
-            if (it->getUserName() == tempUser &&
-                it->getUserNumber() == tempID)
+            if (it->getUserName() == tempUser)
             {
                 Users.erase(it);
                 cout << "User has been erased! " << endl;
@@ -91,10 +91,11 @@ void Library::removeUser()
             else
             {
                
-
+                cout << "Invalid input" << endl;
+                return;
             }
         }
-        cout << "Invalid input" << endl;
+        
     }
     else
     {
@@ -108,7 +109,7 @@ void Library::removeBook()
 {
     string tempBook;
     string yesNo;
-    int tempID;
+    string tempID;
 
     cout << "Which Book Would you like to get rid of?" << endl;
     cin >> tempBook;

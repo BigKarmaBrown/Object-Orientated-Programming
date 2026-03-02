@@ -8,7 +8,7 @@ void ViewReport(Library& library) //LIBRARIAN AND ADMIN
 void addBook(Library& library) { //LIBRARIAN AND ADMIN
 
     bool correctDetails;
-    int tempBookID = 0;
+    string tempBookID;
     string tempBookName;
     string tempBookAuthor;
 
@@ -16,34 +16,13 @@ void addBook(Library& library) { //LIBRARIAN AND ADMIN
 
     cout << "What is the books ID Number? " << endl;
     cin >> tempBookID;
-    if (tempBookID >= 100000000 || tempBookID <= 0) {
-        cout << "invalid input! Please try again." << endl;
-        return;
-    }
-    else {
-
-    }
-
+ 
     cout << "What is your books name? " << endl;
-
-    if (!(cin >> tempBookName))
-    {
-        cout << "invalid input! Please try again." << endl;
-        return;
-    }
-    else {
-
-    }
+    cin >> tempBookName;
 
     cout << "Who is your books Author?  " << endl;
-    if (!(cin >> tempBookAuthor))
-    {
-        cout << "invalid input! Please try again." << endl;
-        return;
-    }
-    else {
-
-    }
+    cin >> tempBookAuthor;
+   
 
     cout << "Your books ID is: " << tempBookID << endl;
     cout << "Your books title is: " << tempBookName << endl;

@@ -6,24 +6,24 @@ class Book
 {
 private:
     string bookName;
-    int bookID;
+    string bookID;
     string bookAuthor;
     bool borrowed;
     bool reserved;
 
 public:
     
-    Book(int ID, std::string name, std::string author, bool borrowed, bool reserved);
+    Book(string value, std::string name, std::string author, bool borrowed, bool reserved);
 
    
-    void setBookID(int amount);
+    void setBookID(string value);
     void setBookName(string value);
     void setBookAuthor(string value);
     void setBorrowed(bool value);
     void setReserved(bool value);
 
     
-    int getBookID() const;
+    string getBookID() const;
     string getBookName() const;
     string getBookAuthor() const;
     bool getBorrowed() const;
