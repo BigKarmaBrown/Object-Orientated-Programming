@@ -22,7 +22,7 @@ void ViewOwnBooksMenu(Library& library);
 void ChangeBooksMenu(Library& library);
 void ReservationsMenu(Library& library);//NOT STARTED
 void ManageUserAccountsMenu(Library& library);
-void ChangeSystemLimitationsMenu(Library& library);//NOT STARTED
+void ChangeSystemLimitationsMenu(Library& library);
 void LibrarianLoginMenu(Library& library);
 void AdminLoginMenu(Library& library);
 void typeMenu(Library& library);

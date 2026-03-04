@@ -1,4 +1,5 @@
 #include "Library.h"
+#include <vector>
 
 void Library::addUser(const User& user)
 {
@@ -158,4 +159,23 @@ void Library::removeBook()
         return;
     }
 
-}
+}/*
+void Library::searchBookName() {
+    system("CLS");
+    string ans = "";
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" <<  endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~SEARCH BOOK BY NAME~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cin >> ans;
+    if (ans == "back" || ans == "back") {
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~going Back~~~~~~~~~~~~~~~~~~~~~" << endl;
+        return;
+    }
+    auto it = find(Books.begin(), Books.end(), ans);
+    if (it != Books.end()) {
+        cout << distance(Books.begin(), it);
+    }
+    else {
+        cout << "Book is not on the system" << endl;
+    }
+}*/

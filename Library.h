@@ -12,7 +12,7 @@ class Library
 {
 
 public:
-   vector<User> Users;
+    vector<User> Users;
     vector<Book> Books;
     vector<Librarian> Librarians;
     vector<Admin> Admins;
@@ -23,13 +23,13 @@ public:
     void addAdmin(const Admin& admin);
     void removeUser();
     void removeBook();
+    void searchBookName();
 
-   
     User* findUserByName(const string& name);
     Librarian* findLibrarianByName(const string& name);
     Admin* findAdminByName(const string& name);
 
-    static User* currentUser;
+    User* currentUser = nullptr;
 
 
     void setCurrentUser(User* user)

@@ -57,7 +57,9 @@ int main() {
     library.addAdmin(Admin("Guy", "3456"));
     library.addAdmin(Admin("Hakan", "1066"));
 
-    loginMenu(library);
+    while(true) {
+        loginMenu(library);
+    }
     return 0;
 }
 
