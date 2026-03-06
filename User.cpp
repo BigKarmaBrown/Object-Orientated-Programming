@@ -3,13 +3,7 @@
 #include "Book.h"
 #include <vector>
 
-int borrowedLimit = 5;
-int getBorrowedLimit() {
-    return borrowedLimit;
-}
-void setBorrowedLimit(int value) {
-    borrowedLimit = value;
-}
+
 int reservationExpiration = 3;
 
 int getreservationExpiration() {

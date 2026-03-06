@@ -12,6 +12,7 @@ class Library
 {
 
 public:
+
     vector<User> Users;
     vector<Book> Books;
     vector<Librarian> Librarians;
@@ -29,21 +30,27 @@ public:
     Librarian* findLibrarianByName(const string& name);
     Admin* findAdminByName(const string& name);
     Book* findBookByName(const string& name);
+
+
+    int getBorrowedLimit();
+    void setBorrowedLimit(int limit);
+    int getreservationExpiration();
+    void setreservationExpiration(int value);
+    int getlateFeePenalty();
+    void setlateFeePenalty(int value);
+
+
+
+
+
     User* currentUser = nullptr;
+    void setCurrentUser(User* user);
+    User* getCurrentUser();
+    void logout();
 
+private:
+    int borrowedLimit = 5;
+    int reservationExpiration = 3;
+    int lateFeePenalty = 50;
 
-    void setCurrentUser(User* user)
-    {
-        currentUser = user;
-    }
-
-    User* getCurrentUser()
-    {
-        return currentUser;
-    }
-
-    void logout()
-    {
-        currentUser = 0;
-    }
 };

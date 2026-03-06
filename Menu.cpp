@@ -99,7 +99,10 @@ void typeMenu(Library& library)
     
     if (!(cin >> ans)) {
         cout << "Invalid Input" << endl;
+        cout << "Returning Now" << endl;
+        system("Pause");
         cin.clear();
+        return;
     }
 
     switch (ans)
@@ -325,7 +328,7 @@ void AdminLoginMenu(Library& library)
 }
 void BrowseBooksMenu(Library& library)  //work on input and reserve
 {
-    
+     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     while (true)
     {
         system("CLS");
@@ -335,6 +338,7 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
         cout << "Type 'Back' to go back a menu!" << endl;
         user->printAllBooks(library);
         string choice;
+       
         getline(cin, choice);
         if (choice == "Back" || choice == "back")
         {
@@ -345,9 +349,10 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
         {
             if (choice == book.getBookName())
             {
-                if (user->booksBorrowed >= user->getBorrowedLimit())
+                if (user->booksBorrowed >= library.getBorrowedLimit())
                 {
                     cout << "Sorry, Max books borrowed!" << endl;
+                    system("pause");
                     break;
                 }
                 
@@ -357,25 +362,30 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
                 user->ownBook.push_back(&book);
                 user->booksBorrowed += 1;
                 cout << "Book borrowed successfully!" << endl;
+                system("pause");
                 break;
                 }
-                if (book.getReserved() == true) 
+                else if (book.getReserved() == true) 
                 {
                     cout << "Sorry, book is already reserved" << endl;
+                    system("pause");
                     break;
                 }
                 if (user->getBookReserved() == true) {
                     cout << "You can only reserve one book at a time" << endl;
+                    system("pause");
                     continue;
                 }
                 if (user->getBookReserved() == false) {
                     user->setBooksReserved(true);
                     cout << "Book reserve request sent!" << endl;
+                    system("pause");
                     return;
                 }
                 else
                 {
                     cout << "Invalid Input, Please try again!" << endl;
+                    system("pause");
                     return;
                 }
                 break;
@@ -735,7 +745,7 @@ void changeBooksLimitMenu(Library& library)
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << " " << endl;
     cout << "                                                  Change Borrowing Books Limit" << endl;
-    cout << "                                                     Current Quantity: " << user->getBorrowedLimit() << endl;
+    cout << "                                                     Current Quantity: " << library.getBorrowedLimit() << endl;
     cout << "                                                  Input new Limit Below" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -750,7 +760,6 @@ void changeBooksLimitMenu(Library& library)
     int change;
     cout << " " << endl;
     cout << "Input new Limit" << endl;
-    cin >> change;
     if (!(cin >> change))
     {
         cout << "invalid input! " << endl;
@@ -758,8 +767,9 @@ void changeBooksLimitMenu(Library& library)
     }
     else 
     {
-        user->setBorrowedLimit(change);
+        library.setBorrowedLimit(change);
         cout << "New limit has been set!" << endl;
+        system("Pause");
         return;
     }
     
@@ -780,7 +790,7 @@ void changeLatePenaltyMenu(Library& library)
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << " " << endl;
     cout << "                                                  Change Late Penalty Fee" << endl;
-    cout << "                                                     Current Quantity: £" << user->getlateFeePenalty() << endl;
+    cout << "                                                     Current Quantity: £" << library.getlateFeePenalty() << endl;
     cout << "                                                  Input new Limit Below" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -802,8 +812,8 @@ void changeLatePenaltyMenu(Library& library)
     }
     else
     {
-        user->setlateFeePenalty(change);
-        cout << "New late fee has been set to: "<< user->getlateFeePenalty() << endl;
+        library.setlateFeePenalty(change);
+        cout << "New late fee has been set to: "<< library.getlateFeePenalty() << endl;
         return;
     }
 }
@@ -822,7 +832,7 @@ void changeReservationsExpirationMenu(Library & library){
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << " " << endl;
     cout << "                                                  Change Late Penalty Fee" << endl;
-    cout << "                                                     Current Quantity: " << user->getreservationExpiration() << " days" << endl;
+    cout << "                                                     Current Quantity: " << library.getreservationExpiration() << " days" << endl;
     cout << "                                                  Input new Limit Below" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -843,7 +853,7 @@ void changeReservationsExpirationMenu(Library & library){
     }
     else
     {
-        user->setreservationExpiration(change);
+        library.setreservationExpiration(change);
         cout << "New Expiration Set!" << endl;
         return;
     }

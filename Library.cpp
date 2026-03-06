@@ -6,6 +6,36 @@ void Library::addUser(const User& user)
     Users.push_back(user);
 }
 
+int Library::getBorrowedLimit() {
+    return borrowedLimit;
+}
+
+void Library::setBorrowedLimit(int limit) {
+    borrowedLimit = limit;
+}
+
+int Library::getreservationExpiration() {
+    return reservationExpiration;
+}
+
+void Library::setreservationExpiration(int value) {
+    reservationExpiration = value;
+}
+
+int Library::getlateFeePenalty() {
+    return lateFeePenalty;
+}
+
+void Library::setlateFeePenalty(int value) {
+    lateFeePenalty = value;
+}
+
+
+
+
+
+
+
 void Library::addBook(const Book& book)
 {
     Books.push_back(book);
@@ -60,6 +90,19 @@ Book* Library::findBookByName(const string& name)
     return nullptr;
 }
 
+
+void Library::setCurrentUser(User* user)
+{
+    currentUser = user;
+}
+User* Library::getCurrentUser()
+{
+    return currentUser;
+}    
+void Library::logout()
+{
+    currentUser = 0;
+}
 
 void Library::removeUser()
 {
@@ -172,13 +215,14 @@ void Library::searchBookName() {
     system("CLS");
 
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~              SEARCH BOOK BY NAME              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~               SEARCH BOOK BY NAME/AUTHOR                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "                                             (Type 'Back' to go back)" << endl;
-    cout << "                                             Enter book name:   ";
+    cout << "                                           (Type 'Back' to go back)" << endl;
+    cout << "                                           Enter book name/author:   ";
 
     string ans;
-   // cin >> ans;
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, ans);
 
     while (true) {
@@ -186,10 +230,10 @@ void Library::searchBookName() {
 
             return;
         }
-    auto it = find_if(Books.begin(), Books.end(), [&ans](const Book& book) {return book.getBookName() == ans;});
+    auto it = find_if(Books.begin(), Books.end(), [&ans](const Book& book) {return book.getBookName() == ans || book.getBookAuthor() == ans;});
     if (it != Books.end()) 
     {
-        cout << "book details are below: " << endl;
+        cout << "Book details are below: " << endl;
         cout << "Book Name: " << it->getBookName() << endl;
         cout << "Book Author: " << it->getBookAuthor() << endl;
         cout << "Book Borrowed: " << endl;
