@@ -1,6 +1,6 @@
 #include "Library.h"
 #include <vector>
-
+#include <algorithm>
 void Library::addUser(const User& user)
 {
     Users.push_back(user);
@@ -50,7 +50,15 @@ Admin* Library::findAdminByName(const string& name)
     }
     return nullptr;
 }
-
+Book* Library::findBookByName(const string& name)
+{
+    for (auto& book : Books)
+    {
+        if (book.getBookName() == name)
+            return &book;
+    }
+    return nullptr;
+}
 
 
 void Library::removeUser()
@@ -159,23 +167,83 @@ void Library::removeBook()
         return;
     }
 
-}/*
+}
 void Library::searchBookName() {
     system("CLS");
-    string ans = "";
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" <<  endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~SEARCH BOOK BY NAME~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~              SEARCH BOOK BY NAME              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "                                             (Type 'Back' to go back)" << endl;
+    cout << "                                             Enter book name:   ";
+
+    string ans;
     cin >> ans;
-    if (ans == "back" || ans == "back") {
-        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~going Back~~~~~~~~~~~~~~~~~~~~~" << endl;
-        return;
-    }
-    auto it = find(Books.begin(), Books.end(), ans);
-    if (it != Books.end()) {
-        cout << distance(Books.begin(), it);
+    /*
+    if (search(Books.begin(), Books.end(), Books.begin(), Books.end()) != Books.end()) {
+        cout << "Target was found";
     }
     else {
-        cout << "Book is not on the system" << endl;
+        cout << "The target was not found";
+    }*/
+
+    while (true) {
+   if (ans == "back" || ans == "Back") {
+
+            return;
+        }
+    auto it = find_if(Books.begin(), Books.end(), [&ans](const Book& book) {return book.getBookName() == ans;});
+    if (it != Books.end()) 
+    {
+        cout << "book details are below: " << endl;
+        cout << "Book Name: " << it->getBookName() << endl;
+        cout << "Book Author: " << it->getBookAuthor() << endl;
+        cout << "Book Borrowed: " << endl;
+        if (it->getBorrowed() == true)
+        {
+            cout << "Yes" << endl;
+
+        }
+        else
+        {
+            cout << "No" << endl;
+        }
+        cout << "Book Reserved: " << endl;
+        if (it->getReserved() == true)
+        {
+            cout << "Yes" << endl;
+        }
+        else
+        {
+            cout << "No" << endl;
+        }
+        system("pause");
+        cin.clear();
+        return;
     }
-}*/
+   
+    else {
+        cout << "Book is not on the system" << endl;
+        system("pause");
+        cin.clear();
+        
+    }
+
+    }
+    /*
+
+    Book* searchBook(vector<Book>&books, string name)
+    {
+     
+        for (auto& book : Books)
+        {
+        if (ans == (book.getBookName() == name))
+        return &book;
+        searchResult = &book;
+        }
+        if (searchResult == nullptr){
+            Book.getBookName();
+            Book.getBookAuthor();
+        }*/
+
+}

@@ -895,7 +895,8 @@ void UserMainMenu(Library& library){
             }
             case 3: 
             {
-                //library.searchBookName();
+                library.searchBookName();
+                break;
             }
 
             case 4:
@@ -971,7 +972,7 @@ void LibrarianMainMenu(User* user, Library& library)
             }
             case 3:
             {
-                //user.searchByAuthor();
+                library.searchBookName();
                 break;
             }
 
@@ -1062,7 +1063,7 @@ void AdminMainMenu(User* user, Library& library)
             }
             case 3:
             {
-                //user.searchByAuthor();
+                library.searchBookName();
                 break;
             }
 

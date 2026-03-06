@@ -28,7 +28,7 @@ public:
     User* findUserByName(const string& name);
     Librarian* findLibrarianByName(const string& name);
     Admin* findAdminByName(const string& name);
-
+    Book* findBookByName(const string& name);
     User* currentUser = nullptr;
 
 
