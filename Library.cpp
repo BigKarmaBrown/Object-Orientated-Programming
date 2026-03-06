@@ -179,13 +179,6 @@ void Library::searchBookName() {
 
     string ans;
     cin >> ans;
-    /*
-    if (search(Books.begin(), Books.end(), Books.begin(), Books.end()) != Books.end()) {
-        cout << "Target was found";
-    }
-    else {
-        cout << "The target was not found";
-    }*/
 
     while (true) {
    if (ans == "back" || ans == "Back") {
@@ -223,27 +216,13 @@ void Library::searchBookName() {
     }
    
     else {
-        cout << "Book is not on the system" << endl;
-        system("pause");
-        cin.clear();
-        
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << "                                                    Book is not on the system" << endl;
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << "                                                 " << system("pause");
+        break;
     }
 
     }
-    /*
-
-    Book* searchBook(vector<Book>&books, string name)
-    {
-     
-        for (auto& book : Books)
-        {
-        if (ans == (book.getBookName() == name))
-        return &book;
-        searchResult = &book;
-        }
-        if (searchResult == nullptr){
-            Book.getBookName();
-            Book.getBookAuthor();
-        }*/
-
+ 
 }

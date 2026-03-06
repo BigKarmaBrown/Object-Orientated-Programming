@@ -122,8 +122,9 @@ void typeMenu(Library& library)
     }
     case 4:
     {
+        system("Pause");
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LOGGING OUT!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-        loginMenu(library);
+        return;
     }
 
     default:
@@ -172,6 +173,7 @@ void usernameLogin(Library& library) {
 
             if (passname == "Back" || passname == "back") {
                 cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~RETURNING MAIN MENU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                system("Pause");
                 return;
             }
 
@@ -186,7 +188,7 @@ void usernameLogin(Library& library) {
 
             if (user->checkPasskey(passkey)) {
                 cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~USER NAME CORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-                User* user = library.currentUser;
+                library.currentUser = user;
                 UserMainMenu(library);
                 cin.clear();
                 return;
@@ -233,6 +235,7 @@ void LibrarianLoginMenu(Library& library){
 
         if (passname == "Back" || passname == "back") {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~RETURNING MAIN MENU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            system("Pause");
             return;
         }
 
@@ -246,7 +249,7 @@ void LibrarianLoginMenu(Library& library){
 
         if (user->checkPasskey(passkey)) {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~USER NAME CORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-            User* user = library.currentUser;
+            library.currentUser = user;
             LibrarianMainMenu(user, library);
             return;
         }
@@ -295,6 +298,7 @@ void AdminLoginMenu(Library& library)
 
         if (passname == "Back" || passname == "back") {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~RETURNING MAIN MENU ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            system("Pause");
             return;
         }
 
@@ -308,7 +312,7 @@ void AdminLoginMenu(Library& library)
 
         if (user->checkPasskey(passkey)) {
             cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~USER NAME CORRECT AND PASSKEY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-            User* user =  library.currentUser;
+            library.currentUser = user;
             AdminMainMenu(user, library);
             return;
         }
@@ -319,7 +323,7 @@ void AdminLoginMenu(Library& library)
     } while (true);
 
 }
-void BrowseBooksMenu(Library& library)  //all
+void BrowseBooksMenu(Library& library)  //work on input and reserve
 {
     
     while (true)
@@ -383,45 +387,46 @@ void BrowseBooksMenu(Library& library)  //all
     }
 
 };
-void ViewOwnBooksMenu(Library& library)  //all
+void ViewOwnBooksMenu(Library& library)
 {
     User* user = library.getCurrentUser();
-    system("CLS");
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OWN BOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "(type to go back)" << endl;
-    string word = "";
-    if (!(user->hasBooks())) 
-    {
-        cout << " You have no books borrowed." << endl;
-        cout << "Borrow a book to see it here." << endl;
-        cout << "Type to go back!" << endl;
-        if (!(cin >> word)) {
-            cout << "Invalid Input" << endl;
-            cin.clear();
-            return;
-        }
-    }
-    else {
-           
-            cout << " " << endl;
-            cout << " " << endl;
-            for (auto& ownBooks : library.Books) {
-                cout << ownBooks.getBookName() << endl;
-                cout << ownBooks.getBookAuthor() << endl;
-                cout << ownBooks.getBookID() << endl;
-                cout << " " << endl;
-            }
-    
-            if (!(cin >> word)) {
-                cout << "Invalid Input" << endl;
-                cin.clear();
-                return;
-            }
-            return;
 
+    if (user == nullptr)
+    {
+        cout << "No user logged in." << endl;
+        system("pause");
+        return;
     }
-    
-   
+
+    system("CLS");
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ OWN BOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "                               (type to go back)" << endl;
+
+    string word;
+
+    if (!user->hasBooks())
+    {
+        cout << "You have no books borrowed." << endl;
+        cout << "Borrow a book to see it here." << endl;
+        cout << "Type anything to go back." << endl;
+
+        cin >> word;
+        return;
+    }
+
+    cout << endl << endl;
+
+    for (auto* book : user->ownBook)
+    {
+        cout << "Book Name: " << book->getBookName() << endl;
+        cout << "Book Author: " << book->getBookAuthor() << endl;
+        cout << "Book ID: " << book->getBookID() << endl;
+        cout << "" << endl;
+        cout << endl;
+    }
+
+    system("pause");
+    return;
 }
 void ChangeBooksMenu(Library& library) //LIBRARIAN AND ADMIN
 {
@@ -703,6 +708,7 @@ void ChangeSystemLimitationsMenu(Library& library)
             case 4:
             {
                 cout << "~~~~~~~~~~~~~~~~~~~~~~Going Back~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                system("Pause");
                 return;
                 break;
             }
@@ -902,6 +908,7 @@ void UserMainMenu(Library& library){
             case 4:
             {
                 cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LOGGING OUT!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                system("Pause");
                 return;
                 break;
             }
@@ -994,6 +1001,7 @@ void LibrarianMainMenu(User* user, Library& library)
             case 7:
             {
                 cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LOGGING OUT!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                system("Pause");
                 return;
             }
 
@@ -1095,6 +1103,7 @@ void AdminMainMenu(User* user, Library& library)
             case 9:
             {
                 cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LOGGING OUT!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+                system("Pause");
                 loginMenu(library);
                 break;
             }
