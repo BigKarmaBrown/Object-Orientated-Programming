@@ -5,6 +5,7 @@
 #include "Book.h"
 #include "Librarian.h"
 #include "Admin.h"
+#include "Reservations.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ public:
     vector<Book> Books;
     vector<Librarian> Librarians;
     vector<Admin> Admins;
+    vector<ReservationRequest> reservationRequests;
 
     void addUser(const User& user);
     void addBook(const Book& book);
@@ -39,7 +41,9 @@ public:
     int getlateFeePenalty();
     void setlateFeePenalty(int value);
 
-
+    void requestReservation(User* user, Book* book);
+    void approveReservation(const string& bookName);
+    void printReservationRequests();
 
 
 

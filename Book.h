@@ -13,7 +13,7 @@ private:
 
 public:
     
-    Book(string value, std::string name, std::string author, bool borrowed, bool reserved);
+    Book(string value, string name, string author, bool borrowed, bool reserved);
 
    
     void setBookID(string value);

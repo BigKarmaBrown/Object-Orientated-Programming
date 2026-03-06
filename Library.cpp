@@ -1,4 +1,5 @@
 #include "Library.h"
+
 #include <vector>
 #include <algorithm>
 void Library::addUser(const User& user)
@@ -28,6 +29,51 @@ int Library::getlateFeePenalty() {
 
 void Library::setlateFeePenalty(int value) {
     lateFeePenalty = value;
+}
+
+
+
+
+
+void Library::requestReservation(User* user, Book* book)
+{
+    reservationRequests.push_back(ReservationRequest(user, book));
+    cout << "Reservation Request has been sent to the Librarian" << endl;
+}
+
+
+void Library::approveReservation(const string& name)
+{
+    for (auto& requests : reservationRequests) {
+        if (requests.user->getUserName() == name) {
+            requests.approved = true;
+            requests.book->setReserved(true);
+
+            cout << "Reservation has been aproved" << endl;
+            system("Pause");
+            return;
+        }
+        if (requests.book->getBookName() == name) {
+            requests.approved = false;
+            requests.book->setReserved(false);
+
+            cout << "Reservation has been denied" << endl;
+            system("Pause");
+            return;
+        }
+    }
+
+    cout << "Reservation not found" << endl;
+}
+
+void Library::printReservationRequests()
+{
+    for (int i = 0; i < reservationRequests.size(); i++)
+    {
+        cout << i  << reservationRequests[i].user->getUserName() << "  Has requested" << endl;
+        cout << "The Book: " << reservationRequests[i].book->getBookName() << endl;
+            
+    }
 }
 
 

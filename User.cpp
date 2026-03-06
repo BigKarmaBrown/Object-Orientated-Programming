@@ -4,22 +4,7 @@
 #include <vector>
 
 
-int reservationExpiration = 3;
 
-int getreservationExpiration() {
-    return reservationExpiration;
-}
-void setreservationExpiration(int value) {
-    reservationExpiration = value;
-}
-int lateFeePenalty = 50;
-
-int getlateFeePenalty() {
-    return lateFeePenalty;
-}
-void setlateFeePenalty(int value) {
-    lateFeePenalty = value;
-}
 
 void addUser(Library& library)
 {

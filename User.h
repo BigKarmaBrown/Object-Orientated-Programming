@@ -11,34 +11,12 @@ void addUser(Library& library);
 
  class User {
     public:
-        string userName;
-       
-        int booksBorrowed;
-        bool booksReserved;
+        string userName =  "";
+        int booksBorrowed = 0;
+        bool booksReserved = false;
         vector<Book*>ownBook;//store borroed books in here
         void printAllBooks(Library& library);
-        int borrowedLimit;
-        int lateFeePenalty;
-        int reservationExpiration;
 
-        int getBorrowedLimit() {
-            return borrowedLimit;
-        }
-        void setBorrowedLimit(int value) {
-            borrowedLimit = value;
-        }
-        int getreservationExpiration() {
-            return reservationExpiration;
-        }
-        void setreservationExpiration(int value) {
-            reservationExpiration = value;
-        }
-        int getlateFeePenalty() {
-            return lateFeePenalty;
-        }
-        void setlateFeePenalty(int value) {
-            lateFeePenalty = value;
-        }
 
 
        
@@ -82,10 +60,7 @@ void addUser(Library& library);
             userName(name),
             booksBorrowed(0),
             booksOverDue(0),
-            booksReserved(0),
-            borrowedLimit(5),
-            reservationExpiration(3),
-            lateFeePenalty(50),
+            booksReserved(false),
             userPasskey(passkey) {
         }
 
