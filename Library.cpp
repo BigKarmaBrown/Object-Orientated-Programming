@@ -178,7 +178,8 @@ void Library::searchBookName() {
     cout << "                                             Enter book name:   ";
 
     string ans;
-    cin >> ans;
+   // cin >> ans;
+    getline(cin, ans);
 
     while (true) {
    if (ans == "back" || ans == "Back") {

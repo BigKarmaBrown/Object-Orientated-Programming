@@ -335,7 +335,7 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
         cout << "Type 'Back' to go back a menu!" << endl;
         user->printAllBooks(library);
         string choice;
-        cin >> choice;
+        getline(cin, choice);
         if (choice == "Back" || choice == "back")
         {
             return;
