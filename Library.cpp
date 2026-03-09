@@ -76,8 +76,36 @@ void Library::printReservationRequests()
     }
 }
 
+void Library::printOwnBooks(User* user) {
+    for (auto* book : user->ownBook)
+    {
+        cout << "Book Name: " << book->getBookName() << endl;
+        cout << "Book Author: " << book->getBookAuthor() << endl;
+        cout << "Book ID: " << book->getBookID() << endl;
+        cout << "" << endl;
+        cout << endl;
+
+    }
+}
+
+void Library::returnOwnBooks(User* user, string name) {
+    vector<Book*>& books = user->ownBook;
+    for (int i = 0; i < books.size(); i++)
+    {
+        if (books[i]->getBookName() == name) {
+            books[i]->setBorrowed(false);
+            books.erase(books.begin() + i);
 
 
+            cout << "Book has been returned" << endl;
+            system("pause");
+            
+        }
+
+    }
+    cout << "book not found" << endl;
+
+}
 
 
 
@@ -276,44 +304,43 @@ void Library::searchBookName() {
 
             return;
         }
-    auto it = find_if(Books.begin(), Books.end(), [&ans](const Book& book) {return book.getBookName() == ans || book.getBookAuthor() == ans;});
-    if (it != Books.end()) 
+    for (int i = 0; i < Books.size(); i++) 
     {
-        cout << "Book details are below: " << endl;
-        cout << "Book Name: " << it->getBookName() << endl;
-        cout << "Book Author: " << it->getBookAuthor() << endl;
-        cout << "Book Borrowed: " << endl;
-        if (it->getBorrowed() == true)
-        {
-            cout << "Yes" << endl;
+        auto it = find_if(Books.begin(), Books.end(), [&ans](const Book& book) {return book.getBookName() == ans || book.getBookAuthor() == ans;});
+        
+            cout << "Book details are below: " << endl;
+            cout << "Book Name: " << it->getBookName() << endl;
+            cout << "Book Author: " << it->getBookAuthor() << endl;
+            cout << "Book Borrowed: " << endl;
+            if (it->getBorrowed() == true)
+            {
+                cout << "Yes" << endl;
 
-        }
-        else
-        {
-            cout << "No" << endl;
-        }
-        cout << "Book Reserved: " << endl;
-        if (it->getReserved() == true)
-        {
-            cout << "Yes" << endl;
-        }
-        else
-        {
-            cout << "No" << endl;
-        }
-        system("pause");
-        cin.clear();
-        return;
-    }
-   
-    else {
-        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-        cout << "                                                    Book is not on the system" << endl;
-        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-        cout << "                                                 " << system("pause");
-        break;
+            }
+            else
+            {
+                cout << "No" << endl;
+            }
+            cout << "Book Reserved: " << endl;
+            if (it->getReserved() == true)
+            {
+                cout << "Yes" << endl;
+            }
+            else
+            {
+                cout << "No" << endl;
+            }
+            cout << " " << endl;
+            cout << " " << endl;
+            cout << " " << endl;
+            
+
+            system("Pause");
+            return;
     }
 
     }
+    
+    
  
 }

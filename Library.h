@@ -44,8 +44,8 @@ public:
     void requestReservation(User* user, Book* book);
     void approveReservation(const string& bookName);
     void printReservationRequests();
-
-
+    void printOwnBooks(User* user);
+    void returnOwnBooks(User* user, string name);
 
     User* currentUser = nullptr;
     void setCurrentUser(User* user);

@@ -28,7 +28,7 @@ void loginMenu(Library& library) {
         cout << " " << endl;
         cout << "                                              Do you have an account?" << endl;
         cout << "                                                    Yes or No? " << endl;
-        cout << " " << endl;
+        cout << "                                          (type exit to close the applciation)                          " << endl;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -55,6 +55,12 @@ void loginMenu(Library& library) {
         {
             typeMenu(library);
 
+        }
+        if (yesNo == "EXIT" || yesNo == "exit" || yesNo == "e" || yesNo == "quit" || yesNo == "close" || yesNo == "CLOSE" || yesNo == "QUIT" || yesNo == "Quit") {
+            cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ SYSTEM CLOSING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+            exit(0);
         }
         else
         {
@@ -363,6 +369,7 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
                 user->ownBook.push_back(&book);
                 user->booksBorrowed += 1;
                 cout << "Book borrowed successfully!" << endl;
+                cout << "You have " << library.getreservationExpiration() << " days to return your book!" << endl;
                 system("pause");
                 break;
                 }
@@ -402,43 +409,51 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
 void ViewOwnBooksMenu(Library& library)
 {
     User* user = library.getCurrentUser();
-
-    if (user == nullptr)
+    while (true) 
     {
-        cout << "No user logged in." << endl;
+         if (user == nullptr)
+        {
+            cout << "No user logged in." << endl;
+            system("pause");
+            return;
+        }
+
+        system("CLS");
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ OWN BOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << "                               (type to go back)" << endl;
+
+        string word;
+
+        if (!user->hasBooks())
+        {
+            cout << "You have no books borrowed." << endl;
+            cout << "Borrow a book to see it here." << endl;
+          
+
+            system("Pause");
+            return;
+        }
+
+       
+
+        library.printOwnBooks(user);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        
+        cout << "Type books name to return it!" << endl;
+        getline(cin, word);
+        if (word == "Back" || word == "back")
+        {
+            return;
+        }
+        else 
+        {
+        library.returnOwnBooks(user, word);
+        return;
+        }
         system("pause");
         return;
-    }
-
-    system("CLS");
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ OWN BOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "                               (type to go back)" << endl;
-
-    string word;
-
-    if (!user->hasBooks())
-    {
-        cout << "You have no books borrowed." << endl;
-        cout << "Borrow a book to see it here." << endl;
-        cout << "Type anything to go back." << endl;
-
-        cin >> word;
-        return;
-    }
-
-    cout << endl << endl;
-
-    for (auto* book : user->ownBook)
-    {
-        cout << "Book Name: " << book->getBookName() << endl;
-        cout << "Book Author: " << book->getBookAuthor() << endl;
-        cout << "Book ID: " << book->getBookID() << endl;
-        cout << "" << endl;
-        cout << endl;
-    }
-
-    system("pause");
-    return;
+        }
+    
 }
 void ChangeBooksMenu(Library& library) //LIBRARIAN AND ADMIN
 {
@@ -770,19 +785,38 @@ void changeBooksLimitMenu(Library& library)
     cout << "                                                     ";
 
     int change;
-    cout << " " << endl;
-    cout << "Input new Limit" << endl;
-    if (!(cin >> change))
+    string yesNo = "";
+    cin >> change;
+    if (!(change))
     {
         cout << "invalid input! " << endl;
         cin.clear();
     }
-    else 
+    else
     {
-        library.setBorrowedLimit(change);
-        cout << "New limit has been set!" << endl;
-        system("Pause");
+
+        cout << "Is " << change << " the borrowing books limit?" << endl;
+        cout << "(Type yes or no)" << endl;
+        if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
+        {
+            cout << "Please try again" << endl;
+            system("Pause");
+            return;
+        }
+
+        if (yesNo == "Yes" || yesNo == "yes" || yesNo == "Y" || yesNo == "y" || yesNo == "YES")
+        {
+            library.setBorrowedLimit(change);
+            cout << "Borrowing books limit been set to: " << library.getBorrowedLimit() << endl;
+            system("Pause");
+            return;
+
+        }
+
+
+
         return;
+
     }
     
 }
@@ -815,7 +849,7 @@ void changeLatePenaltyMenu(Library& library)
     cout << "                                                     ";
 
     int change;
-
+    string yesNo = "";
     cin >> change;
     if (!(change))
     {
@@ -824,10 +858,30 @@ void changeLatePenaltyMenu(Library& library)
     }
     else
     {
-        library.setlateFeePenalty(change);
-        cout << "New late fee has been set to: "<< library.getlateFeePenalty() << endl;
-        return;
+
+            cout << "Is " << change << " the new change late penalty fee?" << endl;
+            cout << "(Type yes or no)" << endl;
+            if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
+            {
+                cout << "Please try again" << endl;
+                system("Pause");
+                return;
+            }
+
+            if (yesNo == "Yes" || yesNo == "yes" || yesNo == "Y" || yesNo == "y" || yesNo == "YES")
+            {
+                library.setlateFeePenalty(change);
+                cout << "New late fee has been set to: "<< library.getlateFeePenalty() << endl;
+                system("Pause");
+                return;
+
+            }
+
+        
+            return;
+
     }
+
 }
 void changeReservationsExpirationMenu(Library & library){
     system("CLS");
@@ -843,7 +897,7 @@ void changeReservationsExpirationMenu(Library & library){
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << " " << endl;
-    cout << "                                                  Change Late Penalty Fee" << endl;
+    cout << "                                                  Reservation Expiration" << endl;
     cout << "                                                     Current Quantity: " << library.getreservationExpiration() << " days" << endl;
     cout << "                                                  Input new Limit Below" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -857,16 +911,33 @@ void changeReservationsExpirationMenu(Library & library){
     cout << "                                                     ";
 
     int change;
-
+    string yesNo = "";
     if (!(cin >> change))
     {
         cout << "invalid input! " << endl;
         cin.clear();
     }
+
     else
     {
-        library.setreservationExpiration(change);
-        cout << "New Expiration Set!" << endl;
+        cout << "Is " << change << " the Reservation Expiration?" <<  endl;
+        cout << "(Type yes or no)" << endl;
+        if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
+        {
+            cout << "Please try again" << endl;
+            system("Pause");
+            return;
+        }
+
+        if (yesNo == "Yes" || yesNo == "yes" || yesNo == "Y" || yesNo == "y" || yesNo == "YES")
+        {
+            library.setreservationExpiration(change);
+            cout << "New Expiration Set!" << endl;
+            system("Pause");
+            return;
+
+        }
+
         return;
     }
 }
