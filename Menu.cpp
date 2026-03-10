@@ -374,7 +374,7 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
                 
                 int currentTime = 1; 
                 book.getBookDueDate() = currentTime + library.getBookBorrowedLength();
-                system("pause");
+                system("Pause");
                 break;
                 }
                 else if (book.getReserved() == true) 

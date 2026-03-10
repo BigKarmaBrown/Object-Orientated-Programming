@@ -14,9 +14,9 @@ void addUser(Library& library);
         string userName =  "";
         int booksBorrowed = 0;
         bool booksReserved = false;
-        vector<Book*>ownBook;//store borroed books in here
+        vector<Book*>ownBook;
         void printAllBooks(Library& library);
-       //vector<Book*>overDueBooks;
+
 
 
        void setUserName(string value);

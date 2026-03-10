@@ -5,7 +5,14 @@
 #include "Book.h"
 #include "Menu.h"
 #include "Reservations.h"
+#include <windows.h>
 
+void SetColor(int textColor, int bgColor)
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole,
+        (bgColor << 4) | textColor);
+}
   User createUser(string userName, string userPasskey)
     {
         User newUser(userName,  userPasskey);
@@ -22,8 +29,8 @@ int main() {
 
     Library library;
    
-    
-    
+  
+    SetColor(0, 30);
 
     library.addUser(User("Ollie", "1234"));
     library.addUser(User("Cam", "2345"));

@@ -115,6 +115,10 @@ void Library::decreaseBookDueDate() {
     //Use a time function to detect if a day has passed 
         for (auto* book : books) {
             book->setBookDueDate() = book->getBookDueDate() - 1;
+            if (currentTime >= book->getBookDueDate)
+            {
+                book->setOverDue(true);
+            }
             book->ReservationExpiration() = book->ReservationExpiration() - 1;
         }
     
