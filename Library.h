@@ -40,13 +40,16 @@ public:
     void setreservationExpiration(int value);
     int getlateFeePenalty();
     void setlateFeePenalty(int value);
+    void setBookBorrowedLength(int value);
+    int getBookBorrowedLength();
 
+    void decreaseBookDueDate();
     void requestReservation(User* user, Book* book);
     void approveReservation(const string& bookName);
     void printReservationRequests();
     void printOwnBooks(User* user);
     void returnOwnBooks(User* user, string name);
-
+    void checkOverDueToBooks(User* user);
     User* currentUser = nullptr;
     void setCurrentUser(User* user);
     User* getCurrentUser();
@@ -56,5 +59,6 @@ private:
     int borrowedLimit = 5;
     int reservationExpiration = 3;
     int lateFeePenalty = 50;
+    int bookBorrowedLength = 3;
 
 };

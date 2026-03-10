@@ -9,9 +9,5 @@ public:
     Book* book;
     bool approved = false;
 
-    ReservationRequest(User* user, Book* book): user(user), book(book)
-    {
-        user = user;
-        book = book;
-    }
+    ReservationRequest(User* user, Book* book);
 };

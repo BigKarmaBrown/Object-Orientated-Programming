@@ -22,6 +22,13 @@ int Library::getreservationExpiration() {
 void Library::setreservationExpiration(int value) {
     reservationExpiration = value;
 }
+int Library::getBookBorrowedLength() {
+    return bookBorrowedLength;
+}
+
+void Library::setBookBorrowedLength(int value) {
+    bookBorrowedLength = value;
+}
 
 int Library::getlateFeePenalty() {
     return lateFeePenalty;
@@ -87,6 +94,31 @@ void Library::printOwnBooks(User* user) {
 
     }
 }
+
+void Library::checkOverDueToBooks(User* user) {
+    for (auto* book : user->ownBook)
+    {
+        string currentTime = "1";
+        if (currentTime == book->getBookDueDate()) {
+            cout << book->getBookName() << "is over due. Please return it from own books menu." << endl;
+            cout << "If not you will be fined : " << getlateFeePenalty();
+            cout << "" << endl;
+          
+        }
+          system("Pause");
+          continue;
+    }
+}
+/*
+void Library::decreaseBookDueDate() {
+    
+    //Use a time function to detect if a day has passed 
+        for (auto* book : books) {
+            book->setBookDueDate() = book->getBookDueDate() - 1;
+            book->ReservationExpiration() = book->ReservationExpiration() - 1;
+        }
+    
+}*/
 
 void Library::returnOwnBooks(User* user, string name) {
     vector<Book*>& books = user->ownBook;

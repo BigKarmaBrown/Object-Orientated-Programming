@@ -3,7 +3,29 @@
 #include "Book.h"
 void ViewReport(Library& library) //LIBRARIAN AND ADMIN
 {
+  
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << " " << endl;
+    cout << "                                                      VIEW REPORT" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 
+
+    for (auto& user : library.Users)
+    {
+        for (auto* book : user.ownBook)
+        {
+            if (book->getOverDue() == true)
+            {
+                cout << "User: " << user.getUserName() << endl;
+                cout << "Overdue Book: " << book->getBookName() << endl;
+                cout << "---------------------------------------------" << endl;
+            }
+        }
+    }
+    system("Pause");
+    return;
 }
 void addBook(Library& library) { //LIBRARIAN AND ADMIN
 
@@ -36,7 +58,7 @@ void addBook(Library& library) { //LIBRARIAN AND ADMIN
         return;
     }
 
-    Book newBook(tempBookID, tempBookName, tempBookAuthor, false, false);
+    Book newBook(tempBookID, tempBookName, tempBookAuthor, false, false , "", false);
     library.addBook(newBook);
     cout << "ADDED BOOK SUCCESFULLY" << endl;
     return;

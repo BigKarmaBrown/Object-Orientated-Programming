@@ -16,46 +16,18 @@ void addUser(Library& library);
         bool booksReserved = false;
         vector<Book*>ownBook;//store borroed books in here
         void printAllBooks(Library& library);
+       //vector<Book*>overDueBooks;
 
 
+       void setUserName(string value);
+       void setBooksBorrowed(int value);
+       void setBooksReserved(bool value);
 
-       
-        void setUserName(string value)
-        {
-            userName = value;
-        }
+      string getUserName();
+      int getbooksBorrowed();
+      bool getBookReserved();
+      bool hasBooks();
 
-        void setBooksBorrowed(int value)
-        {
-            booksBorrowed = value;
-        }
-
-        void setBooksReserved(bool value)
-        {
-            booksReserved = value;
-        }
-
-
-        
-
-        string getUserName()
-        {
-            return userName;
-        }
-
-        int getbooksBorrowed()
-        {
-            return booksBorrowed;
-        }
-
-        bool getBookReserved()
-        {
-            return booksReserved;
-        }
-        bool hasBooks() 
-        {
-            return !ownBook.empty();
-        }
         User(string name, string passkey) :
             userName(name),
             booksBorrowed(0),
@@ -64,11 +36,7 @@ void addUser(Library& library);
             userPasskey(passkey) {
         }
 
-        bool checkPasskey(string input)
-        {
-            return input == userPasskey;
-        }
-
+        bool checkPasskey(string input);
         
 
     private:

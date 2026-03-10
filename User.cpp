@@ -6,6 +6,50 @@
 
 
 
+void User::setUserName(string value)
+{
+    userName = value;
+}
+
+void User::setBooksBorrowed(int value)
+{
+    booksBorrowed = value;
+}
+
+void User::setBooksReserved(bool value)
+{
+    booksReserved = value;
+}
+
+
+
+
+string User::getUserName()
+{
+    return userName;
+}
+
+int User::getbooksBorrowed()
+{
+    return booksBorrowed;
+}
+
+bool User::getBookReserved()
+{
+    return booksReserved;
+}
+bool User::hasBooks()
+{
+    return !ownBook.empty();
+}
+
+bool User::checkPasskey(string input)
+{
+    return input == userPasskey;
+}
+
+
+
 void addUser(Library& library)
 {
     string tempUserName;

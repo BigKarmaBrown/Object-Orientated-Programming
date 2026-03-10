@@ -17,10 +17,10 @@ void UserMainMenu(Library& library);
 void AdminMainMenu(User* user, Library& library);
 void LibrarianMainMenu(User* user, Library& library);
 void loginMenu(Library& library);
-void BrowseBooksMenu(Library& library); //PROGRESS
+void BrowseBooksMenu(Library& library); 
 void ViewOwnBooksMenu(Library& library);
 void ChangeBooksMenu(Library& library);
-void ReservationsMenu(Library& library);//NOT STARTED
+void ReservationsMenu(Library& library);
 void ManageUserAccountsMenu(Library& library);
 void ChangeSystemLimitationsMenu(Library& library);
 void LibrarianLoginMenu(Library& library);
@@ -31,3 +31,4 @@ void changeBooksLimitMenu(Library& library);
 void changeLatePenaltyMenu(Library& library);
 void changeReservationsExpirationMenu(Library& library);
 void ViewOwnBooksMenu(Library& library);
+void changeBookBorrowLengthMenu(Library& library);
