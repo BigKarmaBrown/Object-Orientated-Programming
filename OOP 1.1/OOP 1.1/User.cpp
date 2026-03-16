@@ -1,0 +1,103 @@
+#include "User.h"
+#include "library.h"
+#include "Book.h"
+#include <vector>
+
+
+
+
+void User::setUserName(string value)
+{
+    userName = value;
+}
+
+void User::setBooksBorrowed(int value)
+{
+    booksBorrowed = value;
+}
+
+void User::setBooksReserved(bool value)
+{
+    booksReserved = value;
+}
+
+
+
+
+string User::getUserName()
+{
+    return userName;
+}
+
+int User::getbooksBorrowed()
+{
+    return booksBorrowed;
+}
+
+bool User::getBookReserved()
+{
+    return booksReserved;
+}
+bool User::hasBooks()
+{
+    return !ownBook.empty();
+}
+
+bool User::checkPasskey(string input)
+{
+    return input == userPasskey;
+}
+
+
+
+void addUser(Library& library)
+{
+    string tempUserName;
+    string tempUserPasskey = "";
+
+
+    cout << "What is the users name? " << endl;
+    cin >> tempUserName;
+    cout << "Please assign a user Passkey!" << endl;
+   
+    cin >> tempUserPasskey;
+ 
+
+    User newUser(tempUserName,  tempUserPasskey);
+    library.addUser(newUser);
+    cout << "USER ADDED SUCCESFULLY" << endl;
+    return;
+
+}
+void User::printAllBooks(Library& library) {
+    for (auto& book : library.Books)
+    {
+
+        cout << "Book Name: " << book.getBookName() << endl;
+        cout << "Book Id: " << book.getBookID() << endl;
+        cout << "Book Author: " << book.getBookAuthor() << endl;
+        cout << "Book Borrowed: " << endl;
+        if (book.getBorrowed() == true)
+        {
+            cout << "Yes" << endl;
+
+        }
+        else
+        {
+            cout << "No" << endl;
+        }
+        cout << "Book Reserved: " << endl;
+        if (book.getReserved() == true)
+        {
+            cout << "Yes" << endl;
+        }
+        else
+        {
+            cout << "No" << endl;
+        }
+        cout << endl;
+        cout << endl;
+
+    }
+}
+
