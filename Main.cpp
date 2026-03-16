@@ -48,7 +48,7 @@ int main() {
     library.addBook(Book("10", "1984", "George Orwell", false, false, "1", false));
     library.addBook(Book("11", "Animal Farm", "George Orwell", false, false, "", false));
     library.addBook(Book("12", "Doctor sleep", "Stephen King", false, false, "", false));
-    library.addBook(Book("13", "It", "Stephen King", false, false, "", false));
+    library.addBook(Book("13", "It", "Stephen King", false, false, "1", false));
     library.addBook(Book("14", "The Shining", "Stephen King", false, false, "", false));
     library.addBook(Book("15", "The green mile", "Stephen King", false, false, "", false));
     library.addBook(Book("16", "Cross", "James Patterson", false, false, "", false));

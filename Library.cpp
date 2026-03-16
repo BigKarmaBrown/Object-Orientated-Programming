@@ -39,9 +39,6 @@ void Library::setlateFeePenalty(int value) {
 }
 
 
-
-
-
 void Library::requestReservation(User* user, Book* book)
 {
     reservationRequests.push_back(ReservationRequest(user, book));
@@ -77,11 +74,12 @@ void Library::printReservationRequests()
 {
     for (int i = 0; i < reservationRequests.size(); i++)
     {
-        cout << i  << reservationRequests[i].user->getUserName() << "  Has requested" << endl;
+        cout << i << reservationRequests[i].user->getUserName() << "  Has requested" << endl;
         cout << "The Book: " << reservationRequests[i].book->getBookName() << endl;
-            
+
     }
 }
+
 
 void Library::printOwnBooks(User* user) {
     for (auto* book : user->ownBook)
@@ -343,6 +341,12 @@ void Library::searchBookName() {
     for (int i = 0; i < Books.size(); i++) 
     {
         auto it = find_if(Books.begin(), Books.end(), [&ans](const Book& book) {return book.getBookName() == ans || book.getBookAuthor() == ans;});
+
+        if (it == Books.end()) {
+            cout << "Inavlid input! Returning menu!" << endl;
+            system("Pause");
+            return;
+        }
         
             cout << "Book details are below: " << endl;
             cout << "Book Name: " << it->getBookName() << endl;
@@ -374,9 +378,10 @@ void Library::searchBookName() {
             system("Pause");
             return;
     }
+  
 
     }
-    
+
     
  
 }

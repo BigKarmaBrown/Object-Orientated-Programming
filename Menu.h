@@ -17,7 +17,7 @@ void UserMainMenu(Library& library);
 void AdminMainMenu(User* user, Library& library);
 void LibrarianMainMenu(User* user, Library& library);
 void loginMenu(Library& library);
-void BrowseBooksMenu(Library& library); 
+void BrowseBooksMenu( Library& library);
 void ViewOwnBooksMenu(Library& library);
 void ChangeBooksMenu(Library& library);
 void ReservationsMenu(Library& library);

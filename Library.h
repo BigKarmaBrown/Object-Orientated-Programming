@@ -43,10 +43,11 @@ public:
     void setBookBorrowedLength(int value);
     int getBookBorrowedLength();
 
-    void decreaseBookDueDate();
     void requestReservation(User* user, Book* book);
     void approveReservation(const string& bookName);
     void printReservationRequests();
+
+   // void decreaseBookDueDate();
     void printOwnBooks(User* user);
     void returnOwnBooks(User* user, string name);
     void checkOverDueToBooks(User* user);

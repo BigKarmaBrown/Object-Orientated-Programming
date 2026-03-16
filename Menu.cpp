@@ -332,7 +332,7 @@ void AdminLoginMenu(Library& library)
     } while (true);
 
 }
-void BrowseBooksMenu(Library& library)  //work on input and reserve
+void BrowseBooksMenu(Library& library) 
 {
      cin.ignore(numeric_limits<streamsize>::max(), '\n');
     while (true)
@@ -344,6 +344,7 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
 
         user->printAllBooks(library);
         cout << "Type 'Back' to go back a menu!" << endl;
+        cout << "Type name of book to borrow/send reserve request" << endl;
         string choice;
        
         getline(cin, choice);
@@ -391,7 +392,7 @@ void BrowseBooksMenu(Library& library)  //work on input and reserve
                 if (user->getBookReserved() == false) {
                     user->setBooksReserved(true);
                     library.requestReservation(user, &book);
-
+                    cout << "Reservation request has been sent" << endl;
                     system("pause");
                     return;
                 }
@@ -461,7 +462,7 @@ void ViewOwnBooksMenu(Library& library)
         }
     
 }
-void ChangeBooksMenu(Library& library) //LIBRARIAN AND ADMIN
+void ChangeBooksMenu(Library& library) 
 {
     int option;
     system("CLS");
@@ -589,7 +590,7 @@ void AddAccountMenu(Library& library)
         }
     }
 }
-void ReservationsMenu(Library& library) //LIBRARIAN AND ADMIN
+void ReservationsMenu(Library& library) 
 {
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -810,6 +811,7 @@ void changeBooksLimitMenu(Library& library)
 
         cout << "Is " << change << " the borrowing books limit?" << endl;
         cout << "(Type yes or no)" << endl;
+        cin >> yesNo;
         if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
         {
             cout << "Please try again" << endl;
@@ -825,9 +827,6 @@ void changeBooksLimitMenu(Library& library)
             return;
 
         }
-
-
-
         return;
 
     }
@@ -874,6 +873,7 @@ void changeLatePenaltyMenu(Library& library)
 
             cout << "Is " << change << " the new change late penalty fee?" << endl;
             cout << "(Type yes or no)" << endl;
+            cin >> yesNo;
             if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
             {
                 cout << "Please try again" << endl;
@@ -935,6 +935,7 @@ void changeReservationsExpirationMenu(Library & library){
     {
         cout << "Is " << change << " the Reservation Expiration?" <<  endl;
         cout << "(Type yes or no)" << endl;
+        cin >> yesNo;
         if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
         {
             cout << "Please try again" << endl;
@@ -993,6 +994,7 @@ void changeBookBorrowLengthMenu(Library& library) {
     {
         cout << "Is " << change << " the Book Borrowed length?" << endl;
         cout << "(Type yes or no)" << endl;
+        cin >> yesNo;
         if (yesNo == "No" || yesNo == "no" || yesNo == "N" || yesNo == "n" || yesNo == "NO")
         {
             cout << "Please try again" << endl;
